@@ -9,6 +9,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.AddSqlConfiguration();
 builder.AddApplicationConfig();
+builder.AddMapperConfiguration();
+builder.AddMediator();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
