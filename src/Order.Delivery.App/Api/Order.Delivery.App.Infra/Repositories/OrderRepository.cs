@@ -27,6 +27,13 @@ public class OrderRepository : IOrderRepository
         return order!;
     }
 
+    public async Task<IList<Entity.Order>> GetOrderByCustomerIdAsync(int customerId)
+    {
+        var order = await _db.Orders.AsNoTracking().Where(o => o.CustomerId == customerId).ToListAsync();
+        return order!;
+    }
+
+
     public async Task RemoveOrderAsync(Entity.Order order)
     {
         _db.Orders.Remove(order);

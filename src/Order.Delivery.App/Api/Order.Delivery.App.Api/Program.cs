@@ -11,7 +11,7 @@ builder.AddSqlConfiguration();
 builder.AddApplicationConfig();
 builder.AddMapperConfiguration();
 builder.AddMediator();
-builder.Services.AddSwaggerGen();
+builder.AddSwaggerDoc();
 
 var app = builder.Build();
 

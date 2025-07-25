@@ -5,6 +5,7 @@ namespace Order.Delivery.App.Domain.Interfaces;
 public interface IOrderRepository
 {
     Task<Entity.Order> GetOrderByIdAsync(string id);
+    Task<IList<Entity.Order>> GetOrderByCustomerIdAsync(int customerId);
     Task<Entity.Order> CreateOrderAsync(Entity.Order order);
     Task<string> UpdateOrderAsync(Entity.Order order);
     Task RemoveOrderAsync(Entity.Order order);

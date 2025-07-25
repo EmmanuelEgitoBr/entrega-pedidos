@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Order.Delivery.App.Application.Commands.Customers.CreateCustomer;
 using Order.Delivery.App.Application.Mappings;
 using Order.Delivery.App.Domain.Interfaces;
 using Order.Delivery.App.Infra.Context;
 using Order.Delivery.App.Infra.Repositories;
+using System.Reflection;
 
 namespace Order.Delivery.App.Api.Extensions;
 
@@ -37,5 +39,30 @@ public static class WebApiBuilderExtensions
         IMapper mapper = MappingConfig.RegisterMap().CreateMapper();
         builder.Services.AddScoped<IMapper>(_ => mapper);
         builder.Services.AddAutoMapper(typeof(MappingConfig));
+    }
+
+    public static void AddSwaggerDoc(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddSwaggerGen(options =>
+        {
+            options.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Version = "v1",
+                Title = "API de gerenciamento de pedidos delivery",
+                Description = "API feita com .NET Core 8 usando CQRS e Mediator",
+                Contact = new OpenApiContact
+                {
+                    Name = "Página de contato",
+                    Url = new Uri("https://www.google.com")
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "Licenciamento",
+                    Url = new Uri("https://www.google.com")
+                }
+            });
+            var xmlFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFileName));
+        });
     }
 }
