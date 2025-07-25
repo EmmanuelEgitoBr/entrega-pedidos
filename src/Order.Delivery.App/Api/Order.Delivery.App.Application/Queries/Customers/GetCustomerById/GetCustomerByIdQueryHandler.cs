@@ -51,9 +51,5 @@ public class GetCustomerByIdQueryHandler : IRequestHandler<GetCustomerByIdQuery,
                 ErrorMessage = ex.Message
             };
         }
-
-        
-
-        throw new NotImplementedException();
     }
 }

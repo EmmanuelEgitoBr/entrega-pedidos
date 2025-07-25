@@ -1,35 +1,35 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Order.Delivery.App.Application.Commands.Customers.CreateCustomer;
+using Order.Delivery.App.Application.Commands.Products.CreateProduct;
 using Order.Delivery.App.Application.Dtos;
 using Order.Delivery.App.Application.Models;
-using Order.Delivery.App.Application.Queries.Customers.GetCustomerById;
+using Order.Delivery.App.Application.Queries.Products;
 
 namespace Order.Delivery.App.Api.Controllers
 {
-    [Route("api/v1/customers")]
+    [Route("api/v1/products")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class ProductsController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public CustomersController(IMediator mediator)
+        public ProductsController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
         [HttpGet("id")]
-        public async Task<ActionResult<ResponseBase<CustomerDto>>> GetCustomerById(int id)
+        public async Task<ActionResult<ResponseBase<ProductDto>>> GetProductById(int id)
         {
-            var result = await _mediator.Send(new GetCustomerByIdQuery { CustomerId = id});
+            var result = await _mediator.Send(new GetProductByIdQuery { ProductId = id});
 
             if (!result.Success) return BadRequest(result);
 
             return Ok(result);
         }
 
-        [HttpPost("create-customer")]
-        public async Task<ActionResult<ResponseBase<int>>> CreateCustomer([FromBody] CreateCustomerCommand command)
+        [HttpPost("create-product")]
+        public async Task<ActionResult<ResponseBase<int>>> CreateProduct([FromBody] CreateProductCommand command)
         {
             var result = await _mediator.Send(command);
 

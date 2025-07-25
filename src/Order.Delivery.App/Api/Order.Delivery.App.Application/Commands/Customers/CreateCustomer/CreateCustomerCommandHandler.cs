@@ -5,7 +5,7 @@ using Order.Delivery.App.Domain.Interfaces;
 
 namespace Order.Delivery.App.Application.Commands.Customers.CreateCustomer;
 
-public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, ResponseBase<string>>
+public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, ResponseBase<int>>
 {
     private readonly ICustomerRepository _customerRepository;
 
@@ -14,7 +14,7 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
         _customerRepository = customerRepository;
     }
 
-    public async Task<ResponseBase<string>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    public async Task<ResponseBase<int>> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -28,24 +28,24 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
 
             if(result is null)
             {
-                return new ResponseBase<string>
+                return new ResponseBase<int>
                 {
                     Success = false,
                     ErrorMessage = "Não foi possível criar o cliente"
                 };
             }
 
-            ResponseBase<string> response = new()
+            ResponseBase<int> response = new()
             {
                 Success = true,
-                Result = result.CustomerId.ToString()
+                Result = result.CustomerId
             };
 
             return response;
         }
         catch (Exception ex)
         {
-            return new ResponseBase<string>
+            return new ResponseBase<int>
             {
                 Success = false,
                 ErrorMessage = ex.Message

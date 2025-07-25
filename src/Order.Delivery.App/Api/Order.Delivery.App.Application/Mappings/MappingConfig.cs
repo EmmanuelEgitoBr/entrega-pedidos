@@ -11,6 +11,7 @@ public class MappingConfig
         var mapperConfiguration = new MapperConfiguration(config =>
         {
             config.CreateMap<Customer, CustomerDto>().ReverseMap();
+            config.CreateMap<Product, ProductDto>().ReverseMap();
         }
         );
         return mapperConfiguration;
