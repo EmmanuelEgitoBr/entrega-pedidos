@@ -27,7 +27,7 @@ public class ItemRepository : IItemRepository
         return item!;
     }
 
-    public async Task<IList<Item>> GetItemsByOrderIdAsync(int orderId)
+    public async Task<IList<Item>> GetItemsByOrderIdAsync(string orderId)
     {
         var items = await _db.Items.AsNoTracking().Where(c => c.OrderId == orderId).ToListAsync();
         return items!;
