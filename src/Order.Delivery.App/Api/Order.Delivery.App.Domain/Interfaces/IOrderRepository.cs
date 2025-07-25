@@ -1,9 +1,11 @@
-﻿namespace Order.Delivery.App.Domain.Interfaces;
+﻿using Entity = Order.Delivery.App.Domain.Aggregates;
+
+namespace Order.Delivery.App.Domain.Interfaces;
 
 public interface IOrderRepository
 {
-    Task<Order.Delivery.App.Domain.Aggregates.Order> GetOrderByIdAsync(int id);
-    Task<int> CreateOrderAsync(Order.Delivery.App.Domain.Aggregates.Order order);
-    Task<int> UpdateOrderAsync(Order.Delivery.App.Domain.Aggregates.Order order);
-    Task<int> RemoveOrderAsync(int id);
+    Task<Entity.Order> GetOrderByIdAsync(string id);
+    Task<Entity.Order> CreateOrderAsync(Entity.Order order);
+    Task<string> UpdateOrderAsync(Entity.Order order);
+    Task RemoveOrderAsync(Entity.Order order);
 }

@@ -12,7 +12,7 @@ public class Order
     public IList<Item>? Items { get; set; }
     public int CustomerId { get; set; }
     public Customer? Customer { get; set; }
-    public double TotalPrice { get; set; }
+    public decimal TotalPrice { get; set; }
 
     public Order(IList<Item> items, Customer customer)
     {
