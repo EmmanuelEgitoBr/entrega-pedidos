@@ -7,5 +7,6 @@ public class GetOrderByCustomerIdQueryValidator : AbstractValidator<GetOrderByCu
     public GetOrderByCustomerIdQueryValidator()
     {
         RuleFor(p => p.CustomerId).NotNull().WithMessage("O id do cliente é obrigatório");
+        RuleFor(p => p.CustomerId).NotEmpty().WithMessage("O id do cliente é obrigatório");
     }
 }

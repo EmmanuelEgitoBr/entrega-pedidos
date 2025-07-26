@@ -4,7 +4,7 @@ using Order.Delivery.App.Application.Models;
 
 namespace Order.Delivery.App.Application.Queries.Orders.GetOrderByCustomerId;
 
-public class GetOrderByCustomerIdQuery : IRequest<ResponseBase<IList<OrderDto>>>
+public class GetOrderByCustomerIdQuery : IRequest<ResponseBase<OrderListDto>>
 {
     public int CustomerId { get; set; }
 }
