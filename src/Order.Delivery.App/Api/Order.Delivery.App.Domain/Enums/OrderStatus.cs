@@ -3,5 +3,8 @@
 public enum OrderStatus
 {
     CREATED,
-    DELIVERED
+    READY,
+    TRANSPORTING,
+    DELIVERED,
+    CANCELED
 }
