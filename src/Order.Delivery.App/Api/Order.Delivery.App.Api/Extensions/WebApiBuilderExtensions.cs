@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Order.Delivery.App.Application.Commands.Customers.CreateCustomer;
 using Order.Delivery.App.Application.Mappings;
+using Order.Delivery.App.Application.Services;
+using Order.Delivery.App.Application.Services.Interfaces;
 using Order.Delivery.App.Domain.Interfaces;
 using Order.Delivery.App.Infra.Context;
 using Order.Delivery.App.Infra.Repositories;
@@ -27,6 +29,8 @@ public static class WebApiBuilderExtensions
         builder.Services.AddScoped<IItemRepository, ItemRepository>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
+        builder.Services.AddScoped<INotifierService, NotifierService>();
+        builder.Services.AddScoped<IPublisherService, PublisherService>();
     }
 
     public static void AddMediator(this WebApplicationBuilder builder)
