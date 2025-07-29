@@ -15,8 +15,8 @@ public class PublisherService : IPublisherService
     public PublisherService(IConfiguration configuration)
     {
         _configuration = configuration;
-        _orderTopicName = _configuration["OrderSettings:OrderTopicName"]!;
-        _kafkaBootstrapServers = _configuration["OrderSettings:KafkaBootstrapServer"]!;
+        _orderTopicName = _configuration["KafkaSettings:OrderTopicName"]!;
+        _kafkaBootstrapServers = _configuration["KafkaSettings:KafkaBootstrapServer"]!;
     }
 
     public async Task PublishMessageToTopicAsync(Entity.Order order)
