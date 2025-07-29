@@ -41,7 +41,7 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
             var id = await _customerRepository.UpdateCustomerAsync(customerEntity);
             OrderMessage message = new()
             {
-                Action = ActionConstants.UpdateStatusOrder,
+                Action = ActionConstants.CustomerUpdated,
                 Email = request.Email
             };
 
