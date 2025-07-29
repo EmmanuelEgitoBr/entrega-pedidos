@@ -1,13 +1,13 @@
-﻿using Order.Delivery.Notification.Service.Services.Interfaces;
-using Entity = Order.Delivery.Notification.Service.Models;
+﻿using Order.Delivery.Notification.Service.Models;
+using Order.Delivery.Notification.Service.Services.Interfaces;
 
 namespace Order.Delivery.Notification.Service.Services;
 
 public class NotifierService : INotifierService
 {
-    public void Notify(Entity.Order order)
+    public void Notify(OrderMessage order)
     {
-        SendEmail(order!.Customer!.Email);
+        SendEmail(order!.Email!);
     }
 
     private void SendEmail(string email)

@@ -1,7 +1,8 @@
 ﻿namespace Order.Delivery.App.Application.Services.Interfaces;
-using Entity = Order.Delivery.App.Domain.Aggregates;
+
+using Order.Delivery.App.Application.Models;
 
 public interface IPublisherService
 {
-    Task PublishMessageToTopicAsync(Entity.Order order);
+    Task PublishMessageToTopicAsync(OrderMessage order);
 }

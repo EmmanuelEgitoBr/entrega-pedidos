@@ -29,7 +29,6 @@ public static class WebApiBuilderExtensions
         builder.Services.AddScoped<IItemRepository, ItemRepository>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
         builder.Services.AddScoped<IProductRepository, ProductRepository>();
-        builder.Services.AddScoped<INotifierService, NotifierService>();
         builder.Services.AddScoped<IPublisherService, PublisherService>();
     }
 

@@ -1,8 +1,8 @@
 using Confluent.Kafka;
+using Order.Delivery.Notification.Service.Models;
 using Order.Delivery.Notification.Service.Services;
 using Order.Delivery.Notification.Service.Services.Interfaces;
 using System.Text.Json;
-using Entity = Order.Delivery.Notification.Service.Models;
 
 namespace Order.Delivery.Notification.Service
 {
@@ -56,10 +56,14 @@ namespace Order.Delivery.Notification.Service
                             try
                             {
                                 var consumeResult = consumer.Consume(cts.Token);
-                                Entity.Order order = JsonSerializer.Deserialize<Entity.Order>(consumeResult!.Message!.Value)!;
-                                notifierService.Notify(order);
+                                OrderMessage order = JsonSerializer.Deserialize<OrderMessage>(consumeResult!.Message!.Value)!;
 
-                                _logger.LogInformation($"Mensagem recebida: {consumeResult.Message.Value}", DateTimeOffset.Now);
+                                if (order != null)
+                                {
+                                    notifierService.Notify(order);
+                                    _logger.LogInformation($"Ação a realizada: {order.Action}", DateTimeOffset.Now);
+                                    _logger.LogInformation($"Mensagem enviada para o e-mail: {order.Email}", DateTimeOffset.Now);
+                                }
                             }
                             catch (ConsumeException ex) 
                             {

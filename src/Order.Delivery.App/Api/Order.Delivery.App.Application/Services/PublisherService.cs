@@ -1,8 +1,8 @@
 ﻿using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
+using Order.Delivery.App.Application.Models;
 using Order.Delivery.App.Application.Services.Interfaces;
 using System.Text.Json;
-using Entity = Order.Delivery.App.Domain.Aggregates;
 
 namespace Order.Delivery.App.Application.Services;
 
@@ -19,7 +19,7 @@ public class PublisherService : IPublisherService
         _kafkaBootstrapServers = _configuration["KafkaSettings:KafkaBootstrapServer"]!;
     }
 
-    public async Task PublishMessageToTopicAsync(Entity.Order order)
+    public async Task PublishMessageToTopicAsync(OrderMessage order)
     {
         var config = new ProducerConfig
         {
