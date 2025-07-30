@@ -1,6 +1,5 @@
 using Confluent.Kafka;
 using Order.Delivery.Notification.Service.Models;
-using Order.Delivery.Notification.Service.Services;
 using Order.Delivery.Notification.Service.Services.Interfaces;
 using System.Text.Json;
 
@@ -29,8 +28,6 @@ namespace Order.Delivery.Notification.Service
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            //INotifierService notifierService = new NotifierService();
-
             while (!stoppingToken.IsCancellationRequested)
             {
                 if (_logger.IsEnabled(LogLevel.Information))
@@ -64,8 +61,6 @@ namespace Order.Delivery.Notification.Service
 
                                 if (order != null)
                                 {
-                                    //notifierService.Notify(order);
-
                                     var response = await _emailService.SendEmailAsync(order);
 
                                     if (response.IsSuccessStatusCode && response.Content!.Success)

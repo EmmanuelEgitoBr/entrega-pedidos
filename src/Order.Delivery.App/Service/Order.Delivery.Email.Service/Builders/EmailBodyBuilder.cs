@@ -18,21 +18,6 @@ public static class EmailBodyBuilder
             _ => ""
         };
 
-        //switch (thirdWord)
-        //{
-        //    case "NOVO":
-        //        bodyMessage = $"Parabéns! Você agora está cadastrado em nosso Portal Delivery e é o nosso novo cliente";
-        //        break;
-        //    case "MUDANÇA":
-        //        bodyMessage = $"Olá! Você recebeu esse e-mail porque você atualizou seus dados cadastrais em nosso portal!";
-        //        break;
-        //    case "PEDIDO":
-        //        bodyMessage = $"Parabéns {message.Order!.Customer!.Name.ToUpper()} ! Seu pedido, de identificação {message.Order.OrderId}, totalizando R$ {message.Order.TotalPrice} foi criado com sucesso!";
-        //        break;
-        //    default:
-        //        bodyMessage = $"Parabéns {message.Order!.Customer!.Name.ToUpper()} ! Atualização do pedido {message.Order.OrderId} para o status de {message.Order.OrderSituation}.";
-        //        break;
-        //}
         return bodyMessage;
     }
 }
