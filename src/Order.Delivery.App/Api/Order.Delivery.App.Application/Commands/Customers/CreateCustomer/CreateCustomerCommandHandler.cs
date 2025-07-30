@@ -4,6 +4,7 @@ using Order.Delivery.App.Application.Resources.Constants;
 using Order.Delivery.App.Application.Services.Interfaces;
 using Order.Delivery.App.Domain.Entities;
 using Order.Delivery.App.Domain.Interfaces;
+using Entity = Order.Delivery.App.Domain.Aggregates;
 
 namespace Order.Delivery.App.Application.Commands.Customers.CreateCustomer;
 
@@ -40,11 +41,16 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
                 };
             }
 
+            Entity.Order order = new()
+            {
+                Customer = customer
+            };
+
             OrderMessage orderMessage = new()
             {
                 Action = ActionConstants.CustomerCreated,
                 Email = request.Email,
-                Order = null
+                Order = order
             };
             await _publisherService.PublishMessageToTopicAsync(orderMessage);
 

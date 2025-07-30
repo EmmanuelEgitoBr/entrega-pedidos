@@ -4,6 +4,7 @@ using Order.Delivery.App.Application.Resources.Constants;
 using Order.Delivery.App.Application.Services.Interfaces;
 using Order.Delivery.App.Domain.Entities;
 using Order.Delivery.App.Domain.Interfaces;
+using Entity = Order.Delivery.App.Domain.Aggregates;
 
 namespace Order.Delivery.App.Application.Commands.Customers.UpdateCustomer;
 
@@ -39,10 +40,17 @@ public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerComman
             customerEntity.PhoneNumber = request.PhoneNumber;
 
             var id = await _customerRepository.UpdateCustomerAsync(customerEntity);
+
+            Entity.Order order = new()
+            {
+                Customer = customerEntity
+            };
+
             OrderMessage message = new()
             {
                 Action = ActionConstants.CustomerUpdated,
-                Email = request.Email
+                Email = request.Email,
+                Order = order
             };
 
             await _publisherService.PublishMessageToTopicAsync(message);
