@@ -10,14 +10,18 @@ namespace Order.Delivery.Notification.Service
     {
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IEmailService _emailService;
         private readonly string _orderTopicName;
         private readonly string _kafkaBootstrapServers;
         private readonly string _notifierConsumeGroupName;
 
-        public Worker(ILogger<Worker> logger, IConfiguration configuration)
+        public Worker(ILogger<Worker> logger, 
+            IEmailService emailService, 
+            IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
+            _emailService = emailService;
             _orderTopicName = _configuration["KafkaSettings:OrderTopicName"]!;
             _kafkaBootstrapServers = _configuration["KafkaSettings:KafkaBootstrapServer"]!;
             _notifierConsumeGroupName = _configuration["KafkaSettings:NotifierConsumeGroupName"]!;
@@ -61,8 +65,20 @@ namespace Order.Delivery.Notification.Service
                                 if (order != null)
                                 {
                                     notifierService.Notify(order);
+
+                                    var response = await _emailService.SendEmailAsync(order);
+
+                                    if (response.IsSuccessStatusCode && response.Content!.Success)
+                                    {
+                                        _logger.LogInformation("Email enviado com sucesso para {Email}", order.Email);
+                                    }
+                                    else
+                                    {
+                                        _logger.LogError("Falha ao enviar email: {StatusCode} - {Error}",
+                                            response.StatusCode, response.Content?.Error);
+                                    }
+
                                     _logger.LogInformation($"Ação a realizada: {order.Action}", DateTimeOffset.Now);
-                                    _logger.LogInformation($"Mensagem enviada para o e-mail: {order.Email}", DateTimeOffset.Now);
                                 }
                             }
                             catch (ConsumeException ex) 
