@@ -29,7 +29,7 @@ namespace Order.Delivery.Notification.Service
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            INotifierService notifierService = new NotifierService();
+            //INotifierService notifierService = new NotifierService();
 
             while (!stoppingToken.IsCancellationRequested)
             {
@@ -64,7 +64,7 @@ namespace Order.Delivery.Notification.Service
 
                                 if (order != null)
                                 {
-                                    notifierService.Notify(order);
+                                    //notifierService.Notify(order);
 
                                     var response = await _emailService.SendEmailAsync(order);
 
